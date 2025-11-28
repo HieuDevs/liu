@@ -1,0 +1,51 @@
+---
+description: Rules for maintaining Clean Architecture and Code Quality
+globs: *.swift
+---
+
+# Project Rules
+
+## Architecture Guidelines
+
+1.  **Strict Separation**:
+
+    - UI components must reside in `Presentation`.
+    - Business logic must reside in `Domain`.
+    - Data fetching/storage must reside in `Data`.
+
+2.  **ViewModels**:
+
+    - `ViewModel`s must be `ObservableObject` or use `@Observable`.
+    - They should expose published properties for the View to observe.
+    - They must NOT import `UIKit` or `SwiftUI` unless absolutely necessary (keep them testable).
+
+3.  **Dependency Injection**:
+    - Use protocol-based injection.
+    - Views should receive dependencies via `init` or `@EnvironmentObject`.
+
+## Coding Standards
+
+1.  **Naming**:
+
+    - Use PascalCase for types (`struct`, `class`, `enum`).
+    - Use camelCase for properties and functions.
+    - Suffix Views with `View` (e.g., `HomeView`).
+    - Suffix ViewModels with `ViewModel` (e.g., `HomeViewModel`).
+    - Suffix Repositories with `Repository` (e.g., `UserRepository`).
+
+2.  **Localization**:
+
+    - Never hardcode strings in Views.
+    - Use `Constants.LocalizationKeys` instead of raw strings.
+    - Use `String.localized` extension or `LocalizationService` bundle injection.
+
+3.  **File Structure**:
+    - One type per file is preferred.
+    - Group related files in folders (e.g., `Home/View`, `Home/ViewModel`).
+
+## Swift Best Practices
+
+- Prefer `struct` over `class` for data models.
+- Use `let` unless mutation is required.
+- Handle optionals safely (avoid force unwrapping `!`).
+- Use Swift's modern concurrency (`async`/`await`) where applicable.

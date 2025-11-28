@@ -1,0 +1,52 @@
+---
+description: Enforced Project Structure for New Features and Files
+globs: *
+---
+
+# Project Structure Rules
+
+When creating new features, modules, or files, you MUST follow this directory structure strictly.
+
+## Directory Layout
+
+```text
+liu/
+├── App/
+│   ├── liuApp.swift # Entry point
+│   └── DependencyInjection/ # DI Container (e.g., Factory or DependencyContainer)
+├── Presentation/
+│   ├── Scenes/ # Screens/Modules (e.g., Home, Profile)
+│   │   └── [FeatureName]/
+│   │       ├── View/ # SwiftUI Views
+│   │       └── ViewModel/ # ObservableObjects handling state & logic
+│   └── Components/ # Reusable UI Components
+├── Domain/ # Business Logic (Platform Independent)
+│   ├── Entities/ # Simple data structures
+│   ├── UseCases/ # Business logic execution
+│   └── Interfaces/ # Protocols for Repositories/Services
+├── Data/ # Implementation details
+│   ├── Repositories/ # Implementations of Domain Interfaces
+│   ├── DataSources/ # API / Local Database Access
+│   └── Models/ # Data Transfer Objects (DTOs)
+├── Core/ # Shared Utilities & Helpers
+│   ├── Extensions/ # Swift Extensions
+│   ├── Utils/ # Common helper functions
+│   └── Localization/ # Localization Managers & Strings
+└── Resources/
+    └── Assets.xcassets # Images & Colors
+```
+
+## Rules for New Files
+
+1.  **Features**: New features (screens) must go under `Presentation/Scenes/[FeatureName]`.
+    - Create `View/` and `ViewModel/` subdirectories.
+2.  **Components**: Reusable UI components go in `Presentation/Components`.
+3.  **Domain Logic**:
+    - Entities in `Domain/Entities`.
+    - Use cases in `Domain/UseCases`.
+    - Repository protocols in `Domain/Interfaces`.
+4.  **Data Layer**:
+    - Repository implementations in `Data/Repositories`.
+    - DTOs in `Data/Models`.
+    - API/DB code in `Data/DataSources`.
+5.  **Core**: Shared utilities and extensions go in `Core/`.

@@ -1,0 +1,25 @@
+"hello_world" = "Xin chào Thế giới";
+"change_language" = "Đổi ngôn ngữ";
+"current_language" = "Ngôn ngữ hiện tại";
+"welcome_message" = "Chào mừng đến với ứng dụng SwiftUI tốt nhất!";
+
+// Auth
+"sign_in" = "Đăng nhập";
+"sign_up" = "Đăng ký";
+"email" = "Email";
+"password" = "Mật khẩu";
+"confirm_password" = "Xác nhận mật khẩu";
+"name" = "Tên";
+"dont_have_account" = "Chưa có tài khoản? Đăng ký";
+"already_have_account" = "Đã có tài khoản? Đăng nhập";
+"fill_all_fields" = "Vui lòng điền đầy đủ thông tin";
+"passwords_do_not_match" = "Mật khẩu không khớp";
+"logout" = "Đăng xuất";
+"invalid_credentials" = "Thông tin đăng nhập không hợp lệ";
+"user_already_exists" = "Người dùng đã tồn tại";
+
+// Theme
+"theme" = "Giao diện";
+"theme_system" = "Hệ thống";
+"theme_light" = "Sáng";
+"theme_dark" = "Tối";

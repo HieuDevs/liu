@@ -1,0 +1,25 @@
+"hello_world" = "Hello World";
+"change_language" = "Change Language";
+"current_language" = "Current Language";
+"welcome_message" = "Welcome to the best SwiftUI app!";
+
+// Auth
+"sign_in" = "Sign In";
+"sign_up" = "Sign Up";
+"email" = "Email";
+"password" = "Password";
+"confirm_password" = "Confirm Password";
+"name" = "Name";
+"dont_have_account" = "Don't have an account? Sign Up";
+"already_have_account" = "Already have an account? Sign In";
+"fill_all_fields" = "Please fill in all fields";
+"passwords_do_not_match" = "Passwords do not match";
+"logout" = "Logout";
+"invalid_credentials" = "Invalid credentials";
+"user_already_exists" = "User already exists";
+
+// Theme
+"theme" = "Theme";
+"theme_system" = "System";
+"theme_light" = "Light";
+"theme_dark" = "Dark";
