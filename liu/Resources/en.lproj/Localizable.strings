@@ -10,8 +10,8 @@
 "password" = "Password";
 "confirm_password" = "Confirm Password";
 "name" = "Name";
-"dont_have_account" = "Don't have an account? Sign Up";
-"already_have_account" = "Already have an account? Sign In";
+"dont_have_account" = "Don't have an account?";
+"already_have_account" = "Already have an account?";
 "fill_all_fields" = "Please fill in all fields";
 "passwords_do_not_match" = "Passwords do not match";
 "logout" = "Logout";
@@ -23,3 +23,12 @@
 "theme_system" = "System";
 "theme_light" = "Light";
 "theme_dark" = "Dark";
+
+// Home
+"home" = "Home";
+"profile" = "Profile";
+"notifications" = "Notifications";
+"messages" = "Messages";
+"settings" = "Settings";
+"preferences" = "Preferences";
+"welcome_back" = "Welcome back,";

@@ -3,41 +3,33 @@ import SwiftUI
 struct HomeView: View {
     @EnvironmentObject var themeManager: ThemeManager
     @StateObject private var localizationService = LocalizationService.shared
-    @State private var showLanguageSheet = false
-    
-    // Mock data for dashboard
-    let dashboardItems = [
-        DashboardItem(icon: "person.circle.fill", title: "Profile", color: .blue),
-        DashboardItem(icon: "bell.fill", title: "Notifications", color: .orange),
-        DashboardItem(icon: "message.fill", title: "Messages", color: .green),
-        DashboardItem(icon: "gearshape.fill", title: "Settings", color: .purple)
-    ]
-    
+    @StateObject var viewModel: HomeViewModel
+
     var body: some View {
         NavigationStack {
             ZStack {
                 // Background
                 themeManager.theme.colors.background
                     .ignoresSafeArea()
-                
+
                 ScrollView {
                     VStack(spacing: 24) {
                         // Welcome Card
                         welcomeCard
-                        
+
                         // Dashboard Grid
                         dashboardGrid
-                        
+
                         // Content Section
                         VStack(alignment: .leading, spacing: 16) {
-                            Text("Preferences")
+                            Text(Constants.LocalizationKeys.preferences.localized)
                                 .font(themeManager.theme.fonts.headline)
                                 .foregroundStyle(themeManager.theme.colors.textSecondary)
                                 .padding(.horizontal)
-                            
+
                             // Language Selection
                             languageSelector
-                            
+
                             // Theme Selection
                             themeSelector
                         }
@@ -45,18 +37,18 @@ struct HomeView: View {
                     .padding(.vertical)
                 }
             }
-            .navigationTitle("Home")
+            .navigationTitle(Constants.LocalizationKeys.home.localized)
             .navigationBarTitleDisplayMode(.inline)
         }
     }
-    
+
     private var welcomeCard: some View {
         HStack {
             VStack(alignment: .leading, spacing: 8) {
-                Text("Welcome back,")
+                Text(Constants.LocalizationKeys.welcomeBack.localized)
                     .font(themeManager.theme.fonts.headline)
                     .foregroundColor(.white.opacity(0.9))
-                Text("Boss Hieu")
+                Text(viewModel.userName)
                     .font(themeManager.theme.fonts.largeTitle)
                     .fontWeight(.bold)
                     .foregroundColor(.white)
@@ -78,21 +70,21 @@ struct HomeView: View {
         .shadow(color: themeManager.theme.colors.primary.opacity(0.3), radius: 10, x: 0, y: 5)
         .padding(.horizontal)
     }
-    
+
     private var dashboardGrid: some View {
         LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 16) {
-            ForEach(dashboardItems, id: \.title) { item in
+            ForEach(viewModel.dashboardItems) { item in
                 VStack(spacing: 12) {
                     Circle()
-                        .fill(item.color.opacity(0.1))
+                        .fill(color(for: item.colorType).opacity(0.1))
                         .frame(width: 50, height: 50)
                         .overlay(
                             Image(systemName: item.icon)
                                 .font(.title2)
-                                .foregroundColor(item.color)
+                                .foregroundColor(color(for: item.colorType))
                         )
-                    
-                    Text(item.title)
+
+                    Text(item.title.localized)
                         .font(themeManager.theme.fonts.body)
                         .fontWeight(.medium)
                         .foregroundColor(themeManager.theme.colors.textPrimary)
@@ -106,7 +98,7 @@ struct HomeView: View {
         }
         .padding(.horizontal)
     }
-    
+
     private var languageSelector: some View {
         VStack(spacing: 0) {
             ForEach(Language.allCases, id: \.id) { language in
@@ -119,7 +111,7 @@ struct HomeView: View {
                         }
                     }
                 )
-                
+
                 if language != Language.allCases.last {
                     Divider()
                         .padding(.leading, 50)
@@ -131,7 +123,7 @@ struct HomeView: View {
         .shadow(color: Color.black.opacity(0.03), radius: 5, x: 0, y: 2)
         .padding(.horizontal)
     }
-    
+
     private var themeSelector: some View {
         VStack(spacing: 0) {
             ForEach(ThemeMode.allCases) { mode in
@@ -144,7 +136,7 @@ struct HomeView: View {
                         }
                     }
                 )
-                
+
                 if mode != ThemeMode.allCases.last {
                     Divider()
                         .padding(.leading, 50)
@@ -156,12 +148,15 @@ struct HomeView: View {
         .shadow(color: Color.black.opacity(0.03), radius: 5, x: 0, y: 2)
         .padding(.horizontal)
     }
-}
 
-struct DashboardItem {
-    let icon: String
-    let title: String
-    let color: Color
+    private func color(for type: DashboardItem.ItemColor) -> Color {
+        switch type {
+        case .blue: return .blue
+        case .orange: return .orange
+        case .green: return .green
+        case .purple: return .purple
+        }
+    }
 }
 
 struct LanguageRow: View {
@@ -169,7 +164,7 @@ struct LanguageRow: View {
     let language: Language
     let isSelected: Bool
     let action: () -> Void
-    
+
     var body: some View {
         Button(action: action) {
             HStack(spacing: 16) {
@@ -183,13 +178,13 @@ struct LanguageRow: View {
                                 .foregroundColor(.white)
                         }
                     }
-                
+
                 Text(language.displayName)
                     .font(themeManager.theme.fonts.body)
                     .foregroundStyle(themeManager.theme.colors.textPrimary)
-                
+
                 Spacer()
-                
+
                 if isSelected {
                     Text(Constants.LocalizationKeys.currentLanguage.localized)
                         .font(themeManager.theme.fonts.caption)
@@ -208,7 +203,7 @@ struct ThemeRow: View {
     let mode: ThemeMode
     let isSelected: Bool
     let action: () -> Void
-    
+
     var body: some View {
         Button(action: action) {
             HStack(spacing: 16) {
@@ -222,11 +217,11 @@ struct ThemeRow: View {
                                 .foregroundColor(.white)
                         }
                     }
-                
+
                 Text(mode.title)
                     .font(themeManager.theme.fonts.body)
                     .foregroundStyle(themeManager.theme.colors.textPrimary)
-                
+
                 Spacer()
             }
             .padding()
@@ -237,6 +232,9 @@ struct ThemeRow: View {
 }
 
 #Preview {
-    HomeView()
-        .environmentObject(ThemeManager())
+    HomeView(
+        viewModel: HomeViewModel(
+            authRepository: AuthRepositoryImpl(dataSource: FakeAuthDataSource()))
+    )
+    .environmentObject(ThemeManager())
 }

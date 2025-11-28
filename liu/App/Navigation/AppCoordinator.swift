@@ -3,7 +3,7 @@ import SwiftUI
 struct AppCoordinator: View {
     @StateObject private var router = AppRouter()
     @StateObject private var diContainer = AppDIContainer()
-    
+
     var body: some View {
         NavigationStack(path: $router.path) {
             build(router.root)
@@ -13,11 +13,27 @@ struct AppCoordinator: View {
         }
         .environmentObject(diContainer.themeManager)
         .preferredColorScheme(diContainer.themeManager.preferredColorScheme)
+        .task {
+            await checkLoginStatus()
+        }
     }
-    
+
+    private func checkLoginStatus() async {
+        // Small delay to ensure UI is ready or show splash briefly if desired
+        // try? await Task.sleep(nanoseconds: 500_000_000)
+
+        if await diContainer.authRepository.getCurrentUser() != nil {
+            router.setRoot(.home)
+        } else {
+            router.setRoot(.signIn)
+        }
+    }
+
     @ViewBuilder
     private func build(_ route: AppRoute) -> some View {
         switch route {
+        case .splash:
+            ProgressView()  // Or a dedicated SplashView
         case .signIn:
             makeSignInView()
         case .signUp:
@@ -26,9 +42,9 @@ struct AppCoordinator: View {
             makeHomeView()
         }
     }
-    
+
     // MARK: - View Factories
-    
+
     private func makeSignInView() -> some View {
         SignInView(
             viewModel: diContainer.makeSignInViewModel(),
@@ -40,7 +56,7 @@ struct AppCoordinator: View {
             }
         )
     }
-    
+
     private func makeSignUpView() -> some View {
         SignUpView(
             viewModel: diContainer.makeSignUpViewModel(),
@@ -52,12 +68,15 @@ struct AppCoordinator: View {
             }
         )
     }
-    
+
     private func makeHomeView() -> some View {
-        HomeView()
+        HomeView(viewModel: diContainer.makeHomeViewModel())
             .overlay(alignment: .topTrailing) {
                 Button(Constants.LocalizationKeys.logout.localized) {
-                    router.setRoot(.signIn)
+                    Task {
+                        try? await diContainer.authRepository.signOut()
+                        router.setRoot(.signIn)
+                    }
                 }
                 .padding()
             }

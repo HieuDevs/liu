@@ -10,8 +10,8 @@
 "password" = "Mật khẩu";
 "confirm_password" = "Xác nhận mật khẩu";
 "name" = "Tên";
-"dont_have_account" = "Chưa có tài khoản? Đăng ký";
-"already_have_account" = "Đã có tài khoản? Đăng nhập";
+"dont_have_account" = "Chưa có tài khoản?";
+"already_have_account" = "Đã có tài khoản?";
 "fill_all_fields" = "Vui lòng điền đầy đủ thông tin";
 "passwords_do_not_match" = "Mật khẩu không khớp";
 "logout" = "Đăng xuất";
@@ -23,3 +23,12 @@
 "theme_system" = "Hệ thống";
 "theme_light" = "Sáng";
 "theme_dark" = "Tối";
+
+// Home
+"home" = "Trang chủ";
+"profile" = "Hồ sơ";
+"notifications" = "Thông báo";
+"messages" = "Tin nhắn";
+"settings" = "Cài đặt";
+"preferences" = "Tùy chọn";
+"welcome_back" = "Chào mừng trở lại,";

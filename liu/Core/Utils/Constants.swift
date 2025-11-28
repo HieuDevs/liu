@@ -4,17 +4,17 @@ enum Constants {
     enum AppStorageKeys {
         static let selectedLanguage = "selectedLanguage"
     }
-    
+
     enum UserDefaultsKeys {
         static let appleLanguages = "AppleLanguages"
     }
-    
+
     enum LocalizationKeys {
         static let helloWorld = "hello_world"
         static let changeLanguage = "change_language"
         static let currentLanguage = "current_language"
         static let welcomeMessage = "welcome_message"
-        
+
         // Auth
         static let signIn = "sign_in"
         static let signUp = "sign_up"
@@ -29,11 +29,20 @@ enum Constants {
         static let logout = "logout"
         static let invalidCredentials = "invalid_credentials"
         static let userAlreadyExists = "user_already_exists"
-        
+
         // Theme
         static let theme = "theme"
         static let themeSystem = "theme_system"
         static let themeLight = "theme_light"
         static let themeDark = "theme_dark"
+
+        // Home
+        static let home = "home"
+        static let profile = "profile"
+        static let notifications = "notifications"
+        static let messages = "messages"
+        static let settings = "settings"
+        static let preferences = "preferences"
+        static let welcomeBack = "welcome_back"
     }
 }
